@@ -9,13 +9,13 @@ always begin
 end
 
 // память для считывания массива тестовых векторов
-reg [127:0] test_vectors [0:255];
+reg [127:0] test_vectors [0:2047];
 // счетчик, указывающий на номер вектора, и счетчик ошибок
-reg [7:0] counter, errors;
+reg [10:0] counter, errors;
 
 initial begin
-  counter <= 8'h0;
-  errors <= 8'h0;
+  counter <= 11'h0;
+  errors <= 11'h0;
   $readmemb("test_vectors.mem", test_vectors);
 end
 
@@ -30,7 +30,7 @@ begin
   counter <= counter + 1;
   if(expected_result !== c)
     errors <= errors + 1;
-  if(counter == 8'hff)
+  if(counter == 11'h7ff)
     begin
       if(errors == 0)
         $display("Тесты завершены без ошибок");
